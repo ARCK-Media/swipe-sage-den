@@ -1,7 +1,24 @@
 import { MessageCircle, Heart, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export const ChatView = () => {
+  const { toast } = useToast();
+  
+  const handleChatClick = (chatName: string) => {
+    toast({
+      title: `Opening chat with ${chatName}`,
+      description: "Chat feature coming soon!",
+    });
+  };
+
+  const handleQuickAction = (action: string) => {
+    toast({
+      title: action,
+      description: "This feature will be available soon!",
+    });
+  };
+
   const mockChats = [
     {
       id: 1,
@@ -43,7 +60,11 @@ export const ChatView = () => {
       {/* Chat List */}
       <div className="space-y-3">
         {mockChats.map((chat) => (
-          <Card key={chat.id} className="p-4 bg-gradient-card border-border/50 hover:bg-gradient-purple/20 transition-all duration-200 cursor-pointer">
+          <Card 
+            key={chat.id} 
+            className="p-4 bg-gradient-card border-border/50 hover:bg-gradient-purple/20 transition-all duration-200 cursor-pointer"
+            onClick={() => handleChatClick(chat.name)}
+          >
             <div className="flex items-center space-x-3">
               <div className="text-2xl">{chat.avatar}</div>
               <div className="flex-1 min-w-0">
@@ -73,7 +94,10 @@ export const ChatView = () => {
       <div className="space-y-3">
         <h3 className="text-lg font-semibold text-foreground">Quick Actions</h3>
         
-        <Card className="p-4 bg-gradient-pink/20 border-primary/30 hover:bg-gradient-pink/30 transition-all duration-200 cursor-pointer">
+        <Card 
+          className="p-4 bg-gradient-pink/20 border-primary/30 hover:bg-gradient-pink/30 transition-all duration-200 cursor-pointer"
+          onClick={() => handleQuickAction("Ask a Dating Coach")}
+        >
           <div className="flex items-center space-x-3">
             <Heart className="text-primary" size={24} />
             <div>
@@ -83,7 +107,10 @@ export const ChatView = () => {
           </div>
         </Card>
 
-        <Card className="p-4 bg-gradient-purple/20 border-accent/30 hover:bg-gradient-purple/30 transition-all duration-200 cursor-pointer">
+        <Card 
+          className="p-4 bg-gradient-purple/20 border-accent/30 hover:bg-gradient-purple/30 transition-all duration-200 cursor-pointer"
+          onClick={() => handleQuickAction("Join Community")}
+        >
           <div className="flex items-center space-x-3">
             <Users className="text-accent" size={24} />
             <div>

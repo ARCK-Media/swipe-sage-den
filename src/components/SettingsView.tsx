@@ -2,8 +2,36 @@ import { User, Bell, Shield, Heart, HelpCircle, LogOut } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 export const SettingsView = () => {
+  const { toast } = useToast();
+  const [notifications, setNotifications] = useState(true);
+
+  const handleNavigationClick = (label: string) => {
+    toast({
+      title: `Opening ${label}`,
+      description: "This feature will be available soon!",
+    });
+  };
+
+  const handleToggleNotifications = (enabled: boolean) => {
+    setNotifications(enabled);
+    toast({
+      title: enabled ? "Notifications Enabled" : "Notifications Disabled",
+      description: enabled ? "You'll receive dating tips and updates" : "You won't receive notifications",
+    });
+  };
+
+  const handleSignOut = () => {
+    toast({
+      title: "Signing out...",
+      description: "You'll be redirected to the login page",
+      variant: "destructive",
+    });
+  };
+
   const settingSections = [
     {
       title: "Profile",
@@ -62,7 +90,11 @@ export const SettingsView = () => {
               const Icon = item.icon;
               
               return (
-                <Card key={item.label} className="p-4 bg-gradient-card border-border/50 hover:bg-muted/20 transition-all duration-200">
+                <Card 
+                  key={item.label} 
+                  className="p-4 bg-gradient-card border-border/50 hover:bg-muted/20 transition-all duration-200 cursor-pointer"
+                  onClick={() => item.action === 'navigate' ? handleNavigationClick(item.label) : undefined}
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <Icon 
@@ -80,7 +112,10 @@ export const SettingsView = () => {
                     </div>
                     
                     {item.action === 'toggle' && (
-                      <Switch defaultChecked={item.enabled} />
+                      <Switch 
+                        checked={item.label === 'Push Notifications' ? notifications : item.enabled}
+                        onCheckedChange={item.label === 'Push Notifications' ? handleToggleNotifications : undefined}
+                      />
                     )}
                     
                     {item.action === 'navigate' && (
@@ -88,7 +123,12 @@ export const SettingsView = () => {
                     )}
                     
                     {item.action === 'button' && item.variant === 'destructive' && (
-                      <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={handleSignOut}
+                      >
                         Sign Out
                       </Button>
                     )}
