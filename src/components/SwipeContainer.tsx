@@ -120,7 +120,7 @@ export const SwipeContainer = ({ adviceList }: SwipeContainerProps) => {
             Saved: {swipedCards.filter(c => c.direction === 'right').length} tips
           </p>
         </div>
-        <Button onClick={handleReset} className="bg-primary hover:bg-primary/90">
+        <Button onClick={handleReset} className="bg-primary hover:bg-primary/90 shadow-glow">
           <RotateCcw size={16} className="mr-2" />
           Start Over
         </Button>
@@ -209,7 +209,7 @@ export const SwipeContainer = ({ adviceList }: SwipeContainerProps) => {
           variant="outline"
           size="lg"
           onClick={() => handleSwipe('left')}
-          className="w-14 h-14 rounded-full p-0 hover:bg-destructive/10 hover:border-destructive/50"
+          className="w-14 h-14 rounded-full p-0 border-destructive/50 hover:bg-destructive/10 hover:border-destructive hover:shadow-glow"
         >
           <X size={20} className="text-destructive" />
         </Button>
@@ -218,7 +218,7 @@ export const SwipeContainer = ({ adviceList }: SwipeContainerProps) => {
           variant="outline"
           size="lg"
           onClick={() => handleSwipe('right')}
-          className="w-14 h-14 rounded-full p-0 hover:bg-primary/10 hover:border-primary/50"
+          className="w-14 h-14 rounded-full p-0 border-primary/50 hover:bg-primary/10 hover:border-primary hover:shadow-glow"
         >
           <Heart size={20} className="text-primary" />
         </Button>

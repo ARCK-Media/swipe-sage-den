@@ -8,46 +8,48 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Neutral & Warm Palette */
-    --background: 35 20% 96%;
-    --foreground: 25 15% 25%;
+    /* Dark Romantic Theme - inspired by uploaded image */
+    --background: 225 50% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 30 25% 98%;
-    --card-foreground: 25 15% 25%;
+    --card: 225 45% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 30 25% 98%;
-    --popover-foreground: 25 15% 25%;
+    --popover: 225 45% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Warm beige primary */
-    --primary: 35 45% 75%;
-    --primary-foreground: 25 20% 15%;
+    /* Pink coral primary - main accent */
+    --primary: 350 70% 70%;
+    --primary-foreground: 225 50% 8%;
 
-    /* Soft cream secondary */
-    --secondary: 40 30% 90%;
-    --secondary-foreground: 25 15% 30%;
+    /* Dark purple secondary */
+    --secondary: 260 30% 20%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 35 20% 88%;
-    --muted-foreground: 25 10% 50%;
+    --muted: 225 35% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    /* Gentle peach accent for cute factor */
-    --accent: 15 60% 85%;
-    --accent-foreground: 25 20% 20%;
+    /* Purple accent */
+    --accent: 280 50% 60%;
+    --accent-foreground: 0 0% 95%;
 
-    /* Soft red for pass/reject */
-    --destructive: 0 50% 70%;
+    /* Keep destructive for swipe left */
+    --destructive: 0 70% 65%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 35 20% 88%;
-    --input: 35 20% 92%;
-    --ring: 35 45% 75%;
+    --border: 225 30% 18%;
+    --input: 225 30% 18%;
+    --ring: 350 70% 70%;
 
     --radius: 1rem;
 
-    /* Custom design tokens */
-    --gradient-warm: linear-gradient(135deg, hsl(35 30% 95%), hsl(25 25% 92%));
-    --gradient-card: linear-gradient(135deg, hsl(30 25% 98%), hsl(35 20% 96%));
-    --shadow-soft: 0 8px 25px -5px hsl(25 20% 70% / 0.15);
-    --shadow-card: 0 10px 30px -10px hsl(25 25% 60% / 0.2);
+    /* Custom design tokens - dreamy gradients */
+    --gradient-main: linear-gradient(135deg, hsl(225 50% 8%), hsl(225 45% 12%));
+    --gradient-card: linear-gradient(135deg, hsl(225 45% 12%), hsl(225 40% 15%));
+    --gradient-pink: linear-gradient(135deg, hsl(350 70% 70%), hsl(320 60% 65%));
+    --gradient-purple: linear-gradient(135deg, hsl(280 50% 60%), hsl(260 45% 55%));
+    --shadow-glow: 0 8px 32px -8px hsl(350 70% 70% / 0.3);
+    --shadow-card: 0 10px 30px -10px hsl(225 50% 5% / 0.5);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 

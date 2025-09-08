@@ -59,11 +59,13 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-warm': 'var(--gradient-warm)',
+        'gradient-main': 'var(--gradient-main)',
         'gradient-card': 'var(--gradient-card)',
+        'gradient-pink': 'var(--gradient-pink)',
+        'gradient-purple': 'var(--gradient-purple)',
       },
       boxShadow: {
-        'soft': 'var(--shadow-soft)',
+        'glow': 'var(--shadow-glow)',
         'card': 'var(--shadow-card)',
       },
       transitionTimingFunction: {
