@@ -4,10 +4,19 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { EditProfileDialog } from "@/components/EditProfileDialog";
+import { useProfile, type Profile } from "@/hooks/useProfile";
 
 export const SettingsView = () => {
   const { toast } = useToast();
   const [notifications, setNotifications] = useState(true);
+  const { profile, setProfile } = useProfile();
+  const [editProfileOpen, setEditProfileOpen] = useState(false);
+
+  const handleSaveProfile = (updated: Profile) => {
+    setProfile(updated);
+    toast({ title: "Profile updated", description: "Your changes have been saved." });
+  };
 
   const handleNavigationClick = (label: string) => {
     toast({
@@ -36,9 +45,9 @@ export const SettingsView = () => {
     {
       title: "Profile",
       items: [
-        { icon: User, label: "Edit Profile", action: "navigate" },
+        { icon: User, label: "Edit Profile", action: "edit" },
         { icon: Heart, label: "Saved Advice", action: "navigate", badge: "12" },
-      ]
+      ],
     },
     {
       title: "Preferences", 
@@ -70,12 +79,24 @@ export const SettingsView = () => {
       {/* Profile Card */}
       <Card className="p-6 bg-gradient-card border-border/50">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 bg-gradient-pink rounded-full flex items-center justify-center text-2xl">
-            😊
-          </div>
+          {profile.photo ? (
+            <img
+              src={profile.photo}
+              alt="Profile"
+              className="w-16 h-16 rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-16 h-16 bg-gradient-pink rounded-full flex items-center justify-center text-2xl">
+              😊
+            </div>
+          )}
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-card-foreground">Welcome back!</h3>
-            <p className="text-muted-foreground text-sm">Love seeker since January 2024</p>
+            <h3 className="text-lg font-semibold text-card-foreground">
+              {profile.name || "Welcome back!"}
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              Love seeker since January 2024
+            </p>
           </div>
         </div>
       </Card>
@@ -84,22 +105,25 @@ export const SettingsView = () => {
       {settingSections.map((section) => (
         <div key={section.title} className="space-y-3">
           <h3 className="text-lg font-semibold text-foreground">{section.title}</h3>
-          
+
           <div className="space-y-2">
             {section.items.map((item) => {
               const Icon = item.icon;
-              
+
               return (
-                <Card 
-                  key={item.label} 
+                <Card
+                  key={item.label}
                   className="p-4 bg-gradient-card border-border/50 hover:bg-muted/20 transition-all duration-200 cursor-pointer"
-                  onClick={() => item.action === 'navigate' ? handleNavigationClick(item.label) : undefined}
+                  onClick={() => {
+                    if (item.action === 'navigate') handleNavigationClick(item.label);
+                    if (item.action === 'edit') setEditProfileOpen(true);
+                  }}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <Icon 
-                        size={20} 
-                        className={item.variant === 'destructive' ? 'text-destructive' : 'text-muted-foreground'} 
+                      <Icon
+                        size={20}
+                        className={item.variant === 'destructive' ? 'text-destructive' : 'text-muted-foreground'}
                       />
                       <span className={`font-medium ${item.variant === 'destructive' ? 'text-destructive' : 'text-card-foreground'}`}>
                         {item.label}
@@ -110,22 +134,22 @@ export const SettingsView = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     {item.action === 'toggle' && (
-                      <Switch 
+                      <Switch
                         checked={item.label === 'Push Notifications' ? notifications : item.enabled}
                         onCheckedChange={item.label === 'Push Notifications' ? handleToggleNotifications : undefined}
                       />
                     )}
-                    
-                    {item.action === 'navigate' && (
+
+                    {(item.action === 'navigate' || item.action === 'edit') && (
                       <div className="text-muted-foreground">›</div>
                     )}
-                    
+
                     {item.action === 'button' && item.variant === 'destructive' && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"
                         onClick={handleSignOut}
                       >
@@ -139,6 +163,13 @@ export const SettingsView = () => {
           </div>
         </div>
       ))}
+
+      <EditProfileDialog
+        open={editProfileOpen}
+        onOpenChange={setEditProfileOpen}
+        initialProfile={profile}
+        onSave={handleSaveProfile}
+      />
 
       {/* App Info */}
       <div className="text-center pt-6 space-y-2">
